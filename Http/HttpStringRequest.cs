@@ -8,7 +8,7 @@ namespace PixivAPI.Http
 {
     internal class HttpStringRequest : HttpBytesRequest
     {
-        public HttpStringRequest(HttpClient client, CancellationToken cancellationToken) : base(client, cancellationToken)
+        public HttpStringRequest(HttpClient client, CancellationToken? cancellationToken) : base(client, cancellationToken)
         {
 
         }

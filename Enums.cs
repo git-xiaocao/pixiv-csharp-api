@@ -7,6 +7,12 @@ using System.Threading.Tasks;
 
 namespace PixivAPI
 {
+    public enum Restrict
+    {
+        Public,
+        Private,
+    }
+
     public enum RankingMode
     {
         /// <summary>

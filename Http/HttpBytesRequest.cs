@@ -12,9 +12,9 @@ namespace PixivAPI.Http
     {
         private readonly HttpClient client;
         private readonly NameValueCollection query;
-        private readonly CancellationToken cancellationToken;
+        private readonly CancellationToken? cancellationToken;
 
-        public HttpBytesRequest(HttpClient client, CancellationToken cancellationToken)
+        public HttpBytesRequest(HttpClient client, CancellationToken? cancellationToken)
         {
             this.client = client;
             query = HttpUtility.ParseQueryString(string.Empty);
@@ -63,9 +63,17 @@ namespace PixivAPI.Http
                 Query = query.ToString(),
             }.ToString());
             request.Content = Content;
-            HttpResponseMessage response = await client.SendAsync(request, cancellationToken);
 
-            return await response.Content.ReadAsByteArrayAsync();
+            if (cancellationToken is CancellationToken token)
+            {
+                HttpResponseMessage response = await client.SendAsync(request, token);
+                return await response.Content.ReadAsByteArrayAsync();
+            }
+            else
+            {
+                HttpResponseMessage response = await client.SendAsync(request);
+                return await response.Content.ReadAsByteArrayAsync();
+            }
         }
     }
 }

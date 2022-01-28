@@ -1,10 +1,12 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Collections.Specialized;
 using System.Linq;
 using System.Security.Cryptography;
 using System.Text;
 using System.Text.RegularExpressions;
 using System.Threading.Tasks;
+using System.Web;
 
 namespace PixivAPI
 {
@@ -40,6 +42,33 @@ namespace PixivAPI
         {
             string baseUrl = "https://app-api.pixiv.net/web/v1";
             return $"{baseUrl}{(isCreate ? "/provisional-accounts/create" : "/login")}?code_challenge={codeChallenge}&code_challenge_method=S256&client=pixiv-android";
+        }
+
+        /// <summary>
+        /// <code>
+        /// void NavigationStarting(CoreWebView2 coreWebView, CoreWebView2NavigationStartingEventArgs arg){
+        ///     if(Utils.CheckUrlLogin(arg.uri, out string code))
+        ///         AuthClient.InitAuthToken(code, codeVerifier);
+        /// }
+        /// </code>
+        /// </summary>
+        /// <param name="url"></param>
+        /// <param name="code"></param>
+        /// <returns></returns>
+        public static bool CheckUrlLogin(string url, out string code)
+        {
+            Uri uri = new(url);
+            if ("pixiv" == uri.Scheme && uri.Host.Contains("account"))
+            {
+                NameValueCollection querys = HttpUtility.ParseQueryString(uri.Query);
+                code = querys.Get("code") ?? "";
+                return true;
+            }
+            else
+            {
+                code = "";
+                return false;
+            }
         }
     }
 }

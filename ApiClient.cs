@@ -50,7 +50,7 @@ namespace PixivAPI
         /// <returns>
         /// 用户详细信息 <see cref="UserDetailDTO"/>
         /// </returns>
-        public Task<UserDetailDTO> GetUserDetail(int userId, CancellationToken cancellationToken)
+        public Task<UserDetailDTO> GetUserDetail(int userId, CancellationToken? cancellationToken = null)
         {
             return +new HttpJsonRequest<UserDetailDTO>(client, cancellationToken)
             {
@@ -66,14 +66,14 @@ namespace PixivAPI
         /// 获取用户收藏的插画
         /// </summary>
         /// <param name="userId">用户ID</param>
-        /// <param name="restrict">为ture获取公开的(public) 反之不公开(private)</param>
+        /// <param name="restrict"></param>
         /// <param name="cancellationToken"></param>
         /// <exception cref="HttpRequestException"/>
         /// <exception cref="TimeoutException"/>
         /// <returns>
         /// 插画列表 <see cref="IllustsDTO"/>
         /// </returns>
-        public Task<IllustsDTO> GetUserIllustBookmarks(int userId, bool restrict, CancellationToken cancellationToken)
+        public Task<IllustsDTO> GetUserIllustBookmarks(int userId, Restrict restrict, CancellationToken? cancellationToken = null)
         {
             return +new HttpJsonRequest<IllustsDTO>(client, cancellationToken)
             {
@@ -81,7 +81,7 @@ namespace PixivAPI
                 UriString = "/v1/user/bookmarks/illust",
 
                 ["user_id"] = userId,
-                ["restrict"] = restrict ? "public" : "private"
+                ["restrict"] = restrict.ToPixivStringParameter()
             };
         }
 
@@ -89,14 +89,14 @@ namespace PixivAPI
         /// 获取用户收藏的小说
         /// </summary>
         /// <param name="userId">用户ID</param>
-        /// <param name="restrict">为ture获取公开的(public) 反之不公开(private)</param>
+        /// <param name="restrict"></param>
         /// <param name="cancellationToken"></param>
         /// <exception cref="HttpRequestException"/>
         /// <exception cref="TimeoutException"/>
         /// <returns>
         /// 小说列表 <see cref="NovelsDTO"/>
         /// </returns>
-        public Task<NovelsDTO> GetUserNovelBookmarks(int userId, bool restrict, CancellationToken cancellationToken)
+        public Task<NovelsDTO> GetUserNovelBookmarks(int userId, Restrict restrict, CancellationToken? cancellationToken = null)
         {
             return +new HttpJsonRequest<NovelsDTO>(client, cancellationToken)
             {
@@ -104,7 +104,7 @@ namespace PixivAPI
                 UriString = "/v1/user/bookmarks/novel",
 
                 ["user_id"] = userId,
-                ["restrict"] = restrict ? "public" : "private"
+                ["restrict"] = restrict.ToPixivStringParameter()
             };
         }
 
@@ -119,7 +119,7 @@ namespace PixivAPI
         /// <returns>
         /// 插画列表 <see cref="NovelsDTO"/>
         /// </returns>
-        public Task<IllustsDTO> GetUserIllusts(int userId, IllustType type, CancellationToken cancellationToken)
+        public Task<IllustsDTO> GetUserIllusts(int userId, IllustType type, CancellationToken? cancellationToken = null)
         {
             return +new HttpJsonRequest<IllustsDTO>(client, cancellationToken)
             {
@@ -142,7 +142,7 @@ namespace PixivAPI
         /// <returns>
         /// 小说列表 <see cref="NovelsDTO"/>
         /// </returns>
-        public Task<NovelsDTO> GetUserNovels(int userId, CancellationToken cancellationToken)
+        public Task<NovelsDTO> GetUserNovels(int userId, CancellationToken? cancellationToken = null)
         {
             return +new HttpJsonRequest<NovelsDTO>(client, cancellationToken)
             {
@@ -163,7 +163,7 @@ namespace PixivAPI
         /// <returns>
         /// 小说列表 <see cref="NovelsDTO"/>
         /// </returns>
-        public Task<IllustsDTO> GetRecommendedIllusts(IllustType type, CancellationToken cancellationToken)
+        public Task<IllustsDTO> GetRecommendedIllusts(IllustType type, CancellationToken? cancellationToken = null)
         {
             return +new HttpJsonRequest<IllustsDTO>(client, cancellationToken)
             {
@@ -183,7 +183,7 @@ namespace PixivAPI
         /// <returns>
         /// 小说列表 <see cref="NovelsDTO"/>
         /// </returns>
-        public Task<NovelsDTO> GetRecommendedNovels(CancellationToken cancellationToken)
+        public Task<NovelsDTO> GetRecommendedNovels(CancellationToken? cancellationToken = null)
         {
             return +new HttpJsonRequest<NovelsDTO>(client, cancellationToken)
             {
@@ -205,7 +205,7 @@ namespace PixivAPI
         /// <returns>
         /// 插画列表 <see cref="IllustsDTO"/>
         /// </returns>
-        public Task<IllustsDTO> GetRecommendedIllusts(RankingMode mode, CancellationToken cancellationToken)
+        public Task<IllustsDTO> GetRecommendedIllusts(RankingMode mode, CancellationToken? cancellationToken = null)
         {
             return +new HttpJsonRequest<IllustsDTO>(client, cancellationToken)
             {
@@ -226,7 +226,7 @@ namespace PixivAPI
         /// <returns>
         /// 标签数据列表(无Next) <see cref="TrendingTagsDTO"/>
         /// </returns>
-        public Task<TrendingTagsDTO> GetTrendingTags(CancellationToken cancellationToken)
+        public Task<TrendingTagsDTO> GetTrendingTags(CancellationToken? cancellationToken = null)
         {
             return +new HttpJsonRequest<TrendingTagsDTO>(client, cancellationToken)
             {
@@ -247,7 +247,7 @@ namespace PixivAPI
         /// <returns>
         /// 用户列表 <see cref="UsersDTO"/>
         /// </returns>
-        public Task<UsersDTO> GetRecommendedUsers(CancellationToken cancellationToken)
+        public Task<UsersDTO> GetRecommendedUsers(CancellationToken? cancellationToken = null)
         {
             return +new HttpJsonRequest<UsersDTO>(client, cancellationToken)
             {
@@ -262,14 +262,14 @@ namespace PixivAPI
         /// 获取关注用户
         /// </summary>
         /// <param name="userId">用户ID</param>
-        /// <param name="restrict">为ture获取公开的(public) 反之不公开(private)</param>
+        /// <param name="restrict"></param>
         /// <param name="cancellationToken"></param>
         /// <exception cref="HttpRequestException"/>
         /// <exception cref="TimeoutException"/>
         /// <returns>
         /// 用户列表 <see cref="UsersDTO"/>
         /// </returns>
-        public Task<UsersDTO> GetFollowingUsers(int userId, bool restrict, CancellationToken cancellationToken)
+        public Task<UsersDTO> GetFollowingUsers(int userId, Restrict restrict, CancellationToken? cancellationToken = null)
         {
             return +new HttpJsonRequest<UsersDTO>(client, cancellationToken)
             {
@@ -278,21 +278,21 @@ namespace PixivAPI
 
                 ["filter"] = "for_android",
                 ["user_id"] = userId,
-                ["restrict"] = restrict ? "public" : "private",
+                ["restrict"] = restrict.ToPixivStringParameter(),
             };
         }
 
         /// <summary>
         /// 获取关注者的新插画
         /// </summary>
-        /// <param name="restrict">为ture获取公开的(public) 反之不公开(private) null(全部)</param>
+        /// <param name="restrict">null(全部)</param>
         /// <param name="cancellationToken"></param>
         /// <exception cref="HttpRequestException"/>
         /// <exception cref="TimeoutException"/>
         /// <returns>
         /// 插画列表 <see cref="IllustsDTO"/>
         /// </returns>
-        public Task<IllustsDTO> GetFollowerNewIllusts(bool? restrict, CancellationToken cancellationToken)
+        public Task<IllustsDTO> GetFollowerNewIllusts(Restrict? restrict, CancellationToken? cancellationToken = null)
         {
             return +new HttpJsonRequest<IllustsDTO>(client, cancellationToken)
             {
@@ -300,21 +300,21 @@ namespace PixivAPI
                 UriString = "/v2/illust/follow",
 
                 ["filter"] = "for_android",
-                ["content_type"] = restrict is null ? "all" : restrict is true ? "public" : "private",
+                ["content_type"] = restrict is null ? "all" : restrict.ToPixivStringParameter(),
             };
         }
 
         /// <summary>
         /// 获取关注者的新小说
         /// </summary>
-        /// <param name="restrict">为ture获取公开的(public) 反之不公开(private) null(全部)</param>
+        /// <param name="restrict">null(全部)</param>
         /// <param name="cancellationToken"></param>
         /// <exception cref="HttpRequestException"/>
         /// <exception cref="TimeoutException"/>
         /// <returns>
         /// 小说列表 <see cref="NovelsDTO"/>
         /// </returns>
-        public Task<NovelsDTO> GetFollowerNewNovels(bool? restrict, CancellationToken cancellationToken)
+        public Task<NovelsDTO> GetFollowerNewNovels(Restrict? restrict, CancellationToken? cancellationToken = null)
         {
             return +new HttpJsonRequest<NovelsDTO>(client, cancellationToken)
             {
@@ -322,7 +322,7 @@ namespace PixivAPI
                 UriString = "/v1/novel/follow",
 
                 ["filter"] = "for_android",
-                ["content_type"] = restrict is null ? "all" : restrict is true ? "public" : "private",
+                ["content_type"] = restrict is null ? "all" : restrict.ToPixivStringParameter(),
             };
         }
 
@@ -336,7 +336,7 @@ namespace PixivAPI
         /// <returns>
         /// 插画列表 <see cref="IllustsDTO"/>
         /// </returns>
-        public Task<IllustsDTO> GetNewIllusts(IllustType type, CancellationToken cancellationToken)
+        public Task<IllustsDTO> GetNewIllusts(IllustType type, CancellationToken? cancellationToken = null)
         {
             return +new HttpJsonRequest<IllustsDTO>(client, cancellationToken)
             {
@@ -357,7 +357,7 @@ namespace PixivAPI
         /// <returns>
         /// 小说列表 <see cref="NovelsDTO"/>
         /// </returns>
-        public Task<NovelsDTO> GetNewNovels(CancellationToken cancellationToken)
+        public Task<NovelsDTO> GetNewNovels(CancellationToken? cancellationToken = null)
         {
             return +new HttpJsonRequest<NovelsDTO>(client, cancellationToken)
             {
@@ -376,7 +376,7 @@ namespace PixivAPI
         /// <returns>
         /// 插画列表 <see cref="IllustsDTO"/>
         /// </returns>
-        public Task<IllustsDTO> GetIllustRelated(int illustId, CancellationToken cancellationToken)
+        public Task<IllustsDTO> GetIllustRelated(int illustId, CancellationToken? cancellationToken = null)
         {
             return +new HttpJsonRequest<IllustsDTO>(client, cancellationToken)
             {
@@ -398,7 +398,7 @@ namespace PixivAPI
         /// <returns>
         /// 插画详细信息 <see cref="IllustsDTO"/>
         /// </returns>
-        public Task<IllustDetailDTO> GetIllustDetail(int illustId, CancellationToken cancellationToken)
+        public Task<IllustDetailDTO> GetIllustDetail(int illustId, CancellationToken? cancellationToken = null)
         {
             return +new HttpJsonRequest<IllustDetailDTO>(client, cancellationToken)
             {
@@ -421,7 +421,7 @@ namespace PixivAPI
         /// <returns>
         /// 小说HTML页面字符串 <see cref="string"/>
         /// </returns>
-        public Task<string> GetNovelHtml(int novelId, CancellationToken cancellationToken)
+        public Task<string> GetNovelHtml(int novelId, CancellationToken? cancellationToken = null)
         {
             return +new HttpStringRequest(client, cancellationToken)
             {
@@ -442,7 +442,7 @@ namespace PixivAPI
         /// <returns>
         /// 动图元数据 <see cref="UgoiraMetadataDTO"/>
         /// </returns>
-        public Task<UgoiraMetadataDTO> GetUgoiraMetadata(int illustId, CancellationToken cancellationToken)
+        public Task<UgoiraMetadataDTO> GetUgoiraMetadata(int illustId, CancellationToken? cancellationToken = null)
         {
             return +new HttpJsonRequest<UgoiraMetadataDTO>(client, cancellationToken)
             {
@@ -463,7 +463,7 @@ namespace PixivAPI
         /// <returns>
         /// 回复列表 <see cref="UgoiraMetadataDTO"/>
         /// </returns>
-        public Task<CommentsDTO> GetCommentReplies(int commentId, CancellationToken cancellationToken)
+        public Task<CommentsDTO> GetCommentReplies(int commentId, CancellationToken? cancellationToken = null)
         {
             return +new HttpJsonRequest<CommentsDTO>(client, cancellationToken)
             {
@@ -485,7 +485,7 @@ namespace PixivAPI
         /// <returns>
         /// 回复列表 <see cref="UgoiraMetadataDTO"/>
         /// </returns>
-        public Task<CommentsDTO> GetIllustComments(int illustId, CancellationToken cancellationToken)
+        public Task<CommentsDTO> GetIllustComments(int illustId, CancellationToken? cancellationToken = null)
         {
             return +new HttpJsonRequest<CommentsDTO>(client, cancellationToken)
             {
@@ -506,7 +506,7 @@ namespace PixivAPI
         /// <returns>
         /// 自动补全列表(没有Next) <see cref="SearchAutocompleteDTO"/>
         /// </returns>
-        public Task<SearchAutocompleteDTO> SearchAutocomplete(int word, CancellationToken cancellationToken)
+        public Task<SearchAutocompleteDTO> SearchAutocomplete(int word, CancellationToken? cancellationToken = null)
         {
             return +new HttpJsonRequest<SearchAutocompleteDTO>(client, cancellationToken)
             {
@@ -535,7 +535,7 @@ namespace PixivAPI
         /// 插画列表 <see cref="SearchIllustDTO"/>
         /// </returns>
         public Task<SearchIllustDTO> SearchIllust(
-            int word, SearchSort sort, SearchTarget target, DateTime? startDate, DateTime? endDate, int? bookmarkTotal, CancellationToken cancellationToken
+            int word, SearchSort sort, SearchTarget target, DateTime? startDate, DateTime? endDate, int? bookmarkTotal, CancellationToken? cancellationToken = null
         )
         {
             return +new HttpJsonRequest<SearchIllustDTO>(client, cancellationToken)
@@ -570,7 +570,7 @@ namespace PixivAPI
         /// 小说列表 <see cref="SearchNovelDTO"/>
         /// </returns>
         public Task<SearchNovelDTO> SearchNovel(
-            int word, SearchSort sort, SearchTarget target, DateTime? startDate, DateTime? endDate, int? bookmarkTotal, CancellationToken cancellationToken
+            int word, SearchSort sort, SearchTarget target, DateTime? startDate, DateTime? endDate, int? bookmarkTotal, CancellationToken? cancellationToken = null
         )
         {
             return +new HttpJsonRequest<SearchNovelDTO>(client, cancellationToken)
@@ -599,7 +599,7 @@ namespace PixivAPI
         /// <returns>
         /// 用户列表 <see cref="UsersDTO"/>
         /// </returns>
-        public Task<UsersDTO> SearchUsers(int word, CancellationToken cancellationToken)
+        public Task<UsersDTO> SearchUsers(int word, CancellationToken? cancellationToken = null)
         {
             return +new HttpJsonRequest<UsersDTO>(client, cancellationToken)
             {
@@ -616,7 +616,7 @@ namespace PixivAPI
         /// 获取收藏标签
         /// </summary>
         /// <param name="userId">用户ID</param>
-        /// <param name="restrict">为ture获取公开的(public) 反之不公开(private)</param>
+        /// <param name="restrict"></param>
         /// <param name="isNovel">是否为小说</param>
         /// <param name="cancellationToken"></param>
         /// <exception cref="HttpRequestException"/>
@@ -624,7 +624,7 @@ namespace PixivAPI
         /// <returns>
         /// 收藏的标签数组 <see cref="BookmarkTagsDTO"/>
         /// </returns>
-        public Task<BookmarkTagsDTO> GetBookmarkTags(int userId, bool restrict, bool isNovel, CancellationToken cancellationToken)
+        public Task<BookmarkTagsDTO> GetBookmarkTags(int userId, Restrict restrict, bool isNovel, CancellationToken? cancellationToken = null)
         {
             return +new HttpJsonRequest<BookmarkTagsDTO>(client, cancellationToken)
             {
@@ -632,7 +632,7 @@ namespace PixivAPI
                 UriString = $"/v1/user/bookmark-tags/{(isNovel ? "novel" : "illust")}",
 
                 ["user_id"] = userId,
-                ["restrict"] = restrict ? "public" : "private",
+                ["restrict"] = restrict.ToPixivStringParameter(),
 
             };
         }
@@ -642,7 +642,7 @@ namespace PixivAPI
         /// </summary>
         /// <param name="id">作品ID</param>
         /// <param name="tags">作品ID</param>
-        /// <param name="restrict">为ture获取公开的(public) 反之不公开(private)</param>
+        /// <param name="restrict"></param>
         /// <param name="isNovel">是否为小说</param>
         /// <param name="cancellationToken"></param>
         /// <exception cref="HttpRequestException"/>
@@ -650,7 +650,7 @@ namespace PixivAPI
         /// <returns>
         /// 没有 <see cref="string"/>
         /// </returns>
-        public Task<string> AddBookmark(int id, List<string> tags, bool restrict, bool isNovel, CancellationToken cancellationToken)
+        public Task<string> AddBookmark(int id, List<string> tags, Restrict restrict, bool isNovel, CancellationToken? cancellationToken = null)
         {
             return +new HttpStringRequest(client, cancellationToken)
             {
@@ -660,7 +660,7 @@ namespace PixivAPI
                 Content = new FormData()
                 {
                     [$"{(isNovel ? "novel" : "illust")}_id"] = id,
-                    ["restrict"] = restrict ? "public" : "private",
+                    ["restrict"] = restrict.ToPixivStringParameter(),
                     ["tags"] = Json.Encode(tags)
                 }
             };
@@ -677,7 +677,7 @@ namespace PixivAPI
         /// <returns>
         /// 没有 <see cref="string"/>
         /// </returns>
-        public Task<string> DeleteBookmark(int id, bool isNovel, CancellationToken cancellationToken)
+        public Task<string> DeleteBookmark(int id, bool isNovel, CancellationToken? cancellationToken = null)
         {
             return +new HttpStringRequest(client, cancellationToken)
             {
@@ -696,14 +696,14 @@ namespace PixivAPI
         /// 关注用户
         /// </summary>
         /// <param name="userId">用户ID</param>
-        /// <param name="restrict">为ture获取公开的(public) 反之不公开(private)</param>
+        /// <param name="restrict"></param>
         /// <param name="cancellationToken"></param>
         /// <exception cref="HttpRequestException"/>
         /// <exception cref="TimeoutException"/>
         /// <returns>
         /// 没有 <see cref="string"/>
         /// </returns>
-        public Task<string> AddFollow(int userId, bool restrict, CancellationToken cancellationToken)
+        public Task<string> AddFollow(int userId, Restrict restrict, CancellationToken? cancellationToken = null)
         {
             return +new HttpStringRequest(client, cancellationToken)
             {
@@ -713,7 +713,7 @@ namespace PixivAPI
                 Content = new FormData()
                 {
                     ["user_id"] = userId,
-                    ["restrict"] = restrict ? "public" : "private",
+                    ["restrict"] = restrict.ToPixivStringParameter(),
                 }
             };
         }
@@ -728,7 +728,7 @@ namespace PixivAPI
         /// <returns>
         /// 没有 <see cref="string"/>
         /// </returns>
-        public Task<string> DeleteFollow(int userId, CancellationToken cancellationToken)
+        public Task<string> DeleteFollow(int userId, CancellationToken? cancellationToken = null)
         {
             return +new HttpStringRequest(client, cancellationToken)
             {
@@ -755,7 +755,7 @@ namespace PixivAPI
         /// <returns>
         /// 添加的评论 <see cref="AddCommentDTO"/>
         /// </returns>
-        public Task<AddCommentDTO> AddComment(int illustId, string comment, int? stampId, int? parentCommentId, CancellationToken cancellationToken)
+        public Task<AddCommentDTO> AddComment(int illustId, string comment, int? stampId, int? parentCommentId, CancellationToken? cancellationToken = null)
         {
             return +new HttpJsonRequest<AddCommentDTO>(client, cancellationToken)
             {
@@ -783,7 +783,7 @@ namespace PixivAPI
         /// <returns>
         /// 没有 <see cref="string"/>
         /// </returns>
-        public Task<string> DeleteComment(int commentId, CancellationToken cancellationToken)
+        public Task<string> DeleteComment(int commentId, CancellationToken? cancellationToken = null)
         {
             return +new HttpStringRequest(client, cancellationToken)
             {
@@ -808,11 +808,6 @@ namespace PixivAPI
             {
                 ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true;
                 this.authClient = authClient;
-            }
-
-            protected override HttpResponseMessage Send(HttpRequestMessage request, CancellationToken cancellationToken)
-            {
-                return base.Send(request, cancellationToken);
             }
 
 

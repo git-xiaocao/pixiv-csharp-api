@@ -4,12 +4,38 @@
     <TargetFramework>net6.0</TargetFramework>
     <ImplicitUsings>enable</ImplicitUsings>
     <Nullable>enable</Nullable>
+    <GeneratePackageOnBuild>True</GeneratePackageOnBuild>
+    <PackageId>PixivCSharpAPI</PackageId>
+    <Company>xiao-cao-x</Company>
+    <Authors>xiao-cao-x</Authors>
+    <Description>异步高性能Pixiv Mobile API
+免代理IP直连</Description>
+    <PackageProjectUrl>https://github.com/xiao-cao-x/pixiv-csharp-api</PackageProjectUrl>
+    <PackageIcon>xiaocao-100kb.png</PackageIcon>
+    <PackageReadmeFile>README.md</PackageReadmeFile>
+    <RepositoryUrl>https://github.com/xiao-cao-x/pixiv-csharp-api</RepositoryUrl>
+    <AssemblyVersion></AssemblyVersion>
+    <DebugType>none</DebugType>
   </PropertyGroup>
 
   <ItemGroup>
     <None Remove=".gitattributes" />
     <None Remove=".gitignore" />
     <None Remove="LICENSE" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Include="V:\b\xiaocao\xiaocao-100kb.png">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
+  </ItemGroup>
+
+  <ItemGroup>
+    <None Update="README.md">
+      <Pack>True</Pack>
+      <PackagePath>\</PackagePath>
+    </None>
   </ItemGroup>
 
 </Project>
