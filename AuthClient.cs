@@ -46,36 +46,41 @@ namespace PixivAPI
 
 
 
-        public async Task<UserAccountDTO> InitAuthToken(string code, string codeVerifier)
+        public Task<UserAccountDTO> InitAuthToken(string code, string codeVerifier)
         {
-            HttpResponseMessage response = await client.PostAsync("/auth/token", new FormData()
+            return +new HttpJsonRequest<UserAccountDTO>(client, null)
             {
-                ["client_id"] = CLIENT_ID,
-                ["client_secret"] = CLIENT_SECRET,
-                ["include_policy"] = true,
-                ["grant_type"] = "authorization_code",
-                ["code_verifier"] = codeVerifier,
-                ["code"] = code,
-                ["redirect_uri"] = "https://app-api.pixiv.net/web/v1/users/auth/pixiv/callback",
-            });
-            response.EnsureSuccessStatusCode();
-
-            return Json.Decode<UserAccountDTO>(await response.Content.ReadAsByteArrayAsync());
+                Method = HttpMethod.Post,
+                UriString = "/auth/token",
+                Content = new FormData()
+                {
+                    ["client_id"] = CLIENT_ID,
+                    ["client_secret"] = CLIENT_SECRET,
+                    ["include_policy"] = true,
+                    ["grant_type"] = "authorization_code",
+                    ["code_verifier"] = codeVerifier,
+                    ["code"] = code,
+                    ["redirect_uri"] = "https://app-api.pixiv.net/web/v1/users/auth/pixiv/callback",
+                },
+            };
         }
 
-        public async Task<UserAccountDTO> RefreshAuthTokenAsync()
+        public Task<UserAccountDTO> RefreshAuthTokenAsync()
         {
-            HttpResponseMessage response = await client.PostAsync("/auth/token", new FormData()
+            return +new HttpJsonRequest<UserAccountDTO>(client, null)
             {
-                ["client_id"] = CLIENT_ID,
-                ["client_secret"] = CLIENT_SECRET,
-                ["include_policy"]  = true,
-                ["grant_type" ]= "refresh_token",
-                ["refresh_token"]  = RefreshToken,
-            });
-            response.EnsureSuccessStatusCode();
+                Method = HttpMethod.Post,
+                UriString = "/auth/token",
+                Content = new FormData()
+                {
+                    ["client_id"] = CLIENT_ID,
+                    ["client_secret"] = CLIENT_SECRET,
+                    ["include_policy"] = true,
+                    ["grant_type"] = "refresh_token",
+                    ["refresh_token"] = RefreshToken,
+                },
+            };
 
-            return Json.Decode<UserAccountDTO>(await response.Content.ReadAsByteArrayAsync());
         }
     }
 }

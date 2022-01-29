@@ -14,15 +14,15 @@ namespace PixivAPI.Http
             {
                 if (value is string @string)
                 {
-                    Add(new StringContent(name), @string);
+                    Add(new StringContent(@string), name);
                 }
                 else if (value is int @int)
                 {
-                    Add(new StringContent(name), @int.ToString());
+                    Add(new StringContent(@int.ToString()), name);
                 }
                 else if (value is bool @bool)
                 {
-                    Add(new StringContent(name), @bool ? "true" : "false");
+                    Add(new StringContent(@bool ? "true" : "false"), name);
                 }
                 else
                 {

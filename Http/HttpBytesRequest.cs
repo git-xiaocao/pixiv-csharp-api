@@ -67,11 +67,13 @@ namespace PixivAPI.Http
             if (cancellationToken is CancellationToken token)
             {
                 HttpResponseMessage response = await client.SendAsync(request, token);
+                response.EnsureSuccessStatusCode();
                 return await response.Content.ReadAsByteArrayAsync();
             }
             else
             {
                 HttpResponseMessage response = await client.SendAsync(request);
+                response.EnsureSuccessStatusCode();
                 return await response.Content.ReadAsByteArrayAsync();
             }
         }
