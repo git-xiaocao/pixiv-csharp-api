@@ -29,10 +29,9 @@ namespace PixivAPI
         {
             this.getUserAccountFunc = getUserAccountFunc;
 
-            client = new HttpClient()
+            client = new HttpClient(new ClientHandler())
             {
                 BaseAddress = new Uri($"https://{TARGET_IP}"),
-                Timeout = TimeSpan.FromSeconds(5),
             };
 
             client.DefaultRequestHeaders.AcceptLanguage.Add(language);
@@ -45,7 +44,13 @@ namespace PixivAPI
 
 
 
-
+        /// <summary>
+        /// 初始化AuthToken
+        /// </summary>
+        /// <param name="code"></param>
+        /// <param name="codeVerifier"></param>
+        /// <exception cref="HttpException"/>
+        /// <returns></returns>
         public Task<UserAccountDTO> InitAuthToken(string code, string codeVerifier)
         {
             return +new HttpJsonRequest<UserAccountDTO>(client, null)
@@ -65,6 +70,11 @@ namespace PixivAPI
             };
         }
 
+        /// <summary>
+        /// 刷新AuthToken
+        /// </summary>
+        /// <exception cref="HttpException"/>
+        /// <returns></returns>
         public Task<UserAccountDTO> RefreshAuthTokenAsync()
         {
             return +new HttpJsonRequest<UserAccountDTO>(client, null)
@@ -81,6 +91,14 @@ namespace PixivAPI
                 },
             };
 
+        }
+
+        internal class ClientHandler : HttpClientHandler
+        {
+            public ClientHandler()
+            {
+                ServerCertificateCustomValidationCallback = delegate { return true; };
+            }
         }
     }
 }

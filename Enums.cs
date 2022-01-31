@@ -130,9 +130,10 @@ namespace PixivAPI
         /// <returns>枚举类型值的小写下划线字符串</returns>
         public static string ToPixivStringParameter(this Enum e)
         {
+            bool isFirst = true;
             return Regex.Replace(e.ToString(), "[A-Z]", (Match match) =>
             {
-                return $"_{match.Value}";
+                return isFirst ? match.Value : $"_{match.Value}";
             }).ToLower();
         }
     }

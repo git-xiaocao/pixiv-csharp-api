@@ -23,8 +23,7 @@ namespace PixivAPI
         {
             client = new HttpClient(new ClientHandler(authClient))
             {
-                BaseAddress = new Uri($"https://{TARGET_IP}"),
-                Timeout = TimeSpan.FromSeconds(5),
+                BaseAddress = new Uri($"https://{TARGET_IP}")
             };
 
             client.DefaultRequestHeaders.AcceptLanguage.Add(language);
@@ -45,8 +44,8 @@ namespace PixivAPI
         /// </summary>
         /// <param name="userId">用户ID</param>
         /// <param name="cancellationToken"></param>
-        /// <exception cref="HttpRequestException"/>
-        /// <exception cref="TimeoutException"/>
+        /// <exception cref="HttpException"/>
+
         /// <returns>
         /// 用户详细信息 <see cref="UserDetailDTO"/>
         /// </returns>
@@ -68,8 +67,7 @@ namespace PixivAPI
         /// <param name="userId">用户ID</param>
         /// <param name="restrict"></param>
         /// <param name="cancellationToken"></param>
-        /// <exception cref="HttpRequestException"/>
-        /// <exception cref="TimeoutException"/>
+        /// <exception cref="HttpException"/>
         /// <returns>
         /// 插画列表 <see cref="IllustsDTO"/>
         /// </returns>
@@ -91,8 +89,7 @@ namespace PixivAPI
         /// <param name="userId">用户ID</param>
         /// <param name="restrict"></param>
         /// <param name="cancellationToken"></param>
-        /// <exception cref="HttpRequestException"/>
-        /// <exception cref="TimeoutException"/>
+        /// <exception cref="HttpException"/>
         /// <returns>
         /// 小说列表 <see cref="NovelsDTO"/>
         /// </returns>
@@ -114,8 +111,7 @@ namespace PixivAPI
         /// <param name="userId">用户ID</param>
         /// <param name="type">获取的类型</param>
         /// <param name="cancellationToken"></param>
-        /// <exception cref="HttpRequestException"/>
-        /// <exception cref="TimeoutException"/>
+        /// <exception cref="HttpException"/>
         /// <returns>
         /// 插画列表 <see cref="NovelsDTO"/>
         /// </returns>
@@ -137,8 +133,7 @@ namespace PixivAPI
         /// </summary>
         /// <param name="userId">用户ID</param>
         /// <param name="cancellationToken"></param>
-        /// <exception cref="HttpRequestException"/>
-        /// <exception cref="TimeoutException"/>
+        /// <exception cref="HttpException"/>
         /// <returns>
         /// 小说列表 <see cref="NovelsDTO"/>
         /// </returns>
@@ -158,8 +153,7 @@ namespace PixivAPI
         /// </summary>
         /// <param name="type">类型</param>
         /// <param name="cancellationToken"></param>
-        /// <exception cref="HttpRequestException"/>
-        /// <exception cref="TimeoutException"/>
+        /// <exception cref="HttpException"/>
         /// <returns>
         /// 小说列表 <see cref="NovelsDTO"/>
         /// </returns>
@@ -178,8 +172,7 @@ namespace PixivAPI
         /// 获取推荐插画
         /// </summary>
         /// <param name="cancellationToken"></param>
-        /// <exception cref="HttpRequestException"/>
-        /// <exception cref="TimeoutException"/>
+        /// <exception cref="HttpException"/>
         /// <returns>
         /// 小说列表 <see cref="NovelsDTO"/>
         /// </returns>
@@ -200,8 +193,7 @@ namespace PixivAPI
         /// </summary>
         /// <param name="mode">模式</param>
         /// <param name="cancellationToken"></param>
-        /// <exception cref="HttpRequestException"/>
-        /// <exception cref="TimeoutException"/>
+        /// <exception cref="HttpException"/>
         /// <returns>
         /// 插画列表 <see cref="IllustsDTO"/>
         /// </returns>
@@ -221,8 +213,7 @@ namespace PixivAPI
         /// 获取推荐标签(搜索用的)
         /// </summary>
         /// <param name="cancellationToken"></param>
-        /// <exception cref="HttpRequestException"/>
-        /// <exception cref="TimeoutException"/>
+        /// <exception cref="HttpException"/>
         /// <returns>
         /// 标签数据列表(无Next) <see cref="TrendingTagsDTO"/>
         /// </returns>
@@ -242,8 +233,7 @@ namespace PixivAPI
         /// 获取推荐用户
         /// </summary>
         /// <param name="cancellationToken"></param>
-        /// <exception cref="HttpRequestException"/>
-        /// <exception cref="TimeoutException"/>
+        /// <exception cref="HttpException"/>
         /// <returns>
         /// 用户列表 <see cref="UsersDTO"/>
         /// </returns>
@@ -264,8 +254,7 @@ namespace PixivAPI
         /// <param name="userId">用户ID</param>
         /// <param name="restrict"></param>
         /// <param name="cancellationToken"></param>
-        /// <exception cref="HttpRequestException"/>
-        /// <exception cref="TimeoutException"/>
+        /// <exception cref="HttpException"/>
         /// <returns>
         /// 用户列表 <see cref="UsersDTO"/>
         /// </returns>
@@ -287,8 +276,7 @@ namespace PixivAPI
         /// </summary>
         /// <param name="restrict">null(全部)</param>
         /// <param name="cancellationToken"></param>
-        /// <exception cref="HttpRequestException"/>
-        /// <exception cref="TimeoutException"/>
+        /// <exception cref="HttpException"/>
         /// <returns>
         /// 插画列表 <see cref="IllustsDTO"/>
         /// </returns>
@@ -309,8 +297,7 @@ namespace PixivAPI
         /// </summary>
         /// <param name="restrict">null(全部)</param>
         /// <param name="cancellationToken"></param>
-        /// <exception cref="HttpRequestException"/>
-        /// <exception cref="TimeoutException"/>
+        /// <exception cref="HttpException"/>
         /// <returns>
         /// 小说列表 <see cref="NovelsDTO"/>
         /// </returns>
@@ -331,8 +318,7 @@ namespace PixivAPI
         /// </summary>
         /// <param name="type"></param>
         /// <param name="cancellationToken"></param>
-        /// <exception cref="HttpRequestException"/>
-        /// <exception cref="TimeoutException"/>
+        /// <exception cref="HttpException"/>
         /// <returns>
         /// 插画列表 <see cref="IllustsDTO"/>
         /// </returns>
@@ -352,8 +338,7 @@ namespace PixivAPI
         /// 获取最近发布的小说
         /// </summary>
         /// <param name="cancellationToken"></param>
-        /// <exception cref="HttpRequestException"/>
-        /// <exception cref="TimeoutException"/>
+        /// <exception cref="HttpException"/>
         /// <returns>
         /// 小说列表 <see cref="NovelsDTO"/>
         /// </returns>
@@ -371,8 +356,7 @@ namespace PixivAPI
         /// </summary>
         /// <param name="illustId">插画ID</param>
         /// <param name="cancellationToken"></param>
-        /// <exception cref="HttpRequestException"/>
-        /// <exception cref="TimeoutException"/>
+        /// <exception cref="HttpException"/>
         /// <returns>
         /// 插画列表 <see cref="IllustsDTO"/>
         /// </returns>
@@ -393,8 +377,7 @@ namespace PixivAPI
         /// </summary>
         /// <param name="illustId">插画ID</param>
         /// <param name="cancellationToken"></param>
-        /// <exception cref="HttpRequestException"/>
-        /// <exception cref="TimeoutException"/>
+        /// <exception cref="HttpException"/>
         /// <returns>
         /// 插画详细信息 <see cref="IllustsDTO"/>
         /// </returns>
@@ -416,8 +399,7 @@ namespace PixivAPI
         /// </summary>
         /// <param name="novelId">小说</param>
         /// <param name="cancellationToken"></param>
-        /// <exception cref="HttpRequestException"/>
-        /// <exception cref="TimeoutException"/>
+        /// <exception cref="HttpException"/>
         /// <returns>
         /// 小说HTML页面字符串 <see cref="string"/>
         /// </returns>
@@ -437,8 +419,7 @@ namespace PixivAPI
         /// </summary>
         /// <param name="illustId">插画ID</param>
         /// <param name="cancellationToken"></param>
-        /// <exception cref="HttpRequestException"/>
-        /// <exception cref="TimeoutException"/>
+        /// <exception cref="HttpException"/>
         /// <returns>
         /// 动图元数据 <see cref="UgoiraMetadataDTO"/>
         /// </returns>
@@ -458,8 +439,7 @@ namespace PixivAPI
         /// </summary>
         /// <param name="commentId">评论ID</param>
         /// <param name="cancellationToken"></param>
-        /// <exception cref="HttpRequestException"/>
-        /// <exception cref="TimeoutException"/>
+        /// <exception cref="HttpException"/>
         /// <returns>
         /// 回复列表 <see cref="UgoiraMetadataDTO"/>
         /// </returns>
@@ -480,8 +460,7 @@ namespace PixivAPI
         /// </summary>
         /// <param name="illustId">插画ID</param>
         /// <param name="cancellationToken"></param>
-        /// <exception cref="HttpRequestException"/>
-        /// <exception cref="TimeoutException"/>
+        /// <exception cref="HttpException"/>
         /// <returns>
         /// 回复列表 <see cref="UgoiraMetadataDTO"/>
         /// </returns>
@@ -501,8 +480,7 @@ namespace PixivAPI
         /// </summary>
         /// <param name="word">关键字</param>
         /// <param name="cancellationToken"></param>
-        /// <exception cref="HttpRequestException"/>
-        /// <exception cref="TimeoutException"/>
+        /// <exception cref="HttpException"/>
         /// <returns>
         /// 自动补全列表(没有Next) <see cref="SearchAutocompleteDTO"/>
         /// </returns>
@@ -529,8 +507,7 @@ namespace PixivAPI
         /// <param name="endDate">结束时间(必须跟startDate一起填)</param>
         /// <param name="bookmarkTotal">收藏数量 100, 250, 500, 1000, 5000, 7500 , 10000, 20000, 30000, 50000</param>
         /// <param name="cancellationToken"></param>
-        /// <exception cref="HttpRequestException"/>
-        /// <exception cref="TimeoutException"/>
+        /// <exception cref="HttpException"/>
         /// <returns>
         /// 插画列表 <see cref="SearchIllustDTO"/>
         /// </returns>
@@ -564,8 +541,7 @@ namespace PixivAPI
         /// <param name="endDate">结束时间(必须跟startDate一起填)</param>
         /// <param name="bookmarkTotal">收藏数量 100, 250, 500, 1000, 5000, 7500 , 10000, 20000, 30000, 50000</param>
         /// <param name="cancellationToken"></param>
-        /// <exception cref="HttpRequestException"/>
-        /// <exception cref="TimeoutException"/>
+        /// <exception cref="HttpException"/>
         /// <returns>
         /// 小说列表 <see cref="SearchNovelDTO"/>
         /// </returns>
@@ -594,8 +570,7 @@ namespace PixivAPI
         /// </summary>
         /// <param name="word">关键字</param>
         /// <param name="cancellationToken"></param>
-        /// <exception cref="HttpRequestException"/>
-        /// <exception cref="TimeoutException"/>
+        /// <exception cref="HttpException"/>
         /// <returns>
         /// 用户列表 <see cref="UsersDTO"/>
         /// </returns>
@@ -619,8 +594,7 @@ namespace PixivAPI
         /// <param name="restrict"></param>
         /// <param name="isNovel">是否为小说</param>
         /// <param name="cancellationToken"></param>
-        /// <exception cref="HttpRequestException"/>
-        /// <exception cref="TimeoutException"/>
+        /// <exception cref="HttpException"/>
         /// <returns>
         /// 收藏的标签数组 <see cref="BookmarkTagsDTO"/>
         /// </returns>
@@ -645,8 +619,7 @@ namespace PixivAPI
         /// <param name="restrict"></param>
         /// <param name="isNovel">是否为小说</param>
         /// <param name="cancellationToken"></param>
-        /// <exception cref="HttpRequestException"/>
-        /// <exception cref="TimeoutException"/>
+        /// <exception cref="HttpException"/>
         /// <returns>
         /// 没有 <see cref="string"/>
         /// </returns>
@@ -672,8 +645,7 @@ namespace PixivAPI
         /// <param name="id">作品ID</param>
         /// <param name="isNovel">是否为小说</param>
         /// <param name="cancellationToken"></param>
-        /// <exception cref="HttpRequestException"/>
-        /// <exception cref="TimeoutException"/>
+        /// <exception cref="HttpException"/>
         /// <returns>
         /// 没有 <see cref="string"/>
         /// </returns>
@@ -698,8 +670,7 @@ namespace PixivAPI
         /// <param name="userId">用户ID</param>
         /// <param name="restrict"></param>
         /// <param name="cancellationToken"></param>
-        /// <exception cref="HttpRequestException"/>
-        /// <exception cref="TimeoutException"/>
+        /// <exception cref="HttpException"/>
         /// <returns>
         /// 没有 <see cref="string"/>
         /// </returns>
@@ -723,8 +694,7 @@ namespace PixivAPI
         /// </summary>
         /// <param name="userId">用户ID</param>
         /// <param name="cancellationToken"></param>
-        /// <exception cref="HttpRequestException"/>
-        /// <exception cref="TimeoutException"/>
+        /// <exception cref="HttpException"/>
         /// <returns>
         /// 没有 <see cref="string"/>
         /// </returns>
@@ -750,8 +720,7 @@ namespace PixivAPI
         /// <param name="stampId">表情包ID</param>
         /// <param name="parentCommentId">父评论ID(用来回复)</param>
         /// <param name="cancellationToken"></param>
-        /// <exception cref="HttpRequestException"/>
-        /// <exception cref="TimeoutException"/>
+        /// <exception cref="HttpException"/>
         /// <returns>
         /// 添加的评论 <see cref="AddCommentDTO"/>
         /// </returns>
@@ -776,10 +745,8 @@ namespace PixivAPI
         /// 删除评论(自己的)
         /// </summary>
         /// <param name="commentId">插画ID</param>
-
         /// <param name="cancellationToken"></param>
-        /// <exception cref="HttpRequestException"/>
-        /// <exception cref="TimeoutException"/>
+        /// <exception cref="HttpException"/>
         /// <returns>
         /// 没有 <see cref="string"/>
         /// </returns>
@@ -806,7 +773,7 @@ namespace PixivAPI
 
             public ClientHandler(AuthClient authClient)
             {
-                ServerCertificateCustomValidationCallback = (sender, cert, chain, sslPolicyErrors) => true;
+                ServerCertificateCustomValidationCallback = delegate { return true; };
                 this.authClient = authClient;
             }
 
@@ -815,44 +782,35 @@ namespace PixivAPI
             protected async override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
             {
                 request.Headers.Authorization = new("Bearer", authClient.AccessToken);
-                try
+                HttpResponseMessage response = await base.SendAsync(request, cancellationToken);
+                if (response.IsSuccessStatusCode)
                 {
-                    HttpResponseMessage response = await base.SendAsync(request, cancellationToken);
-                    response.EnsureSuccessStatusCode();
                     return response;
                 }
-                catch (HttpRequestException e)
-                {
-                    if (HttpStatusCode.BadRequest == e.StatusCode)
-                    {
-                        if (e.Message.Contains("OAuth"))
-                        {
-                            refreshTokenMutex.WaitOne();
-                            for (int retryCount = 0; retryCount < 3; ++retryCount)
-                            {
-                                request.Headers.Authorization = new("Bearer", (await authClient.RefreshAuthTokenAsync()).AccessToken);
-                                HttpResponseMessage response = await base.SendAsync(request, cancellationToken);
 
-                                if (response.IsSuccessStatusCode)
-                                {
-                                    refreshTokenMutex.ReleaseMutex();
-                                    return response;
-                                }
-                            }
-                            refreshTokenMutex.ReleaseMutex();
-                            throw;
-                        }
-                        else
-                        {
-                            throw;
-                        }
-                    }
-                    else
+
+                if (HttpStatusCode.BadRequest == response.StatusCode)
+                {
+                    if (response.Content.ReadAsStringAsync(cancellationToken).Result.Contains("OAuth"))
                     {
-                        throw;
+                        refreshTokenMutex.WaitOne();
+                        for (int retryCount = 0; retryCount < 3; ++retryCount)
+                        {
+                            request.Headers.Authorization = new("Bearer", (await authClient.RefreshAuthTokenAsync()).AccessToken);
+                            response = await base.SendAsync(request, cancellationToken);
+
+                            if (response.IsSuccessStatusCode)
+                            {
+                                refreshTokenMutex.ReleaseMutex();
+                                return response;
+                            }
+                        }
+                        refreshTokenMutex.ReleaseMutex();
                     }
+
                 }
 
+                return response;
             }
         }
     }

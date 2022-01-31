@@ -56,6 +56,11 @@ namespace PixivAPI.Http
 
         public static Task<byte[]> operator +(HttpBytesRequest thisObject) => thisObject.SendAsync();
 
+        /// <summary>
+        /// 
+        /// </summary>
+        /// <returns></returns>
+        /// <exception cref="HttpException"></exception>
         public async Task<byte[]> SendAsync()
         {
             HttpRequestMessage request = new(Method, new UriBuilder(client.BaseAddress is not null ? new Uri(client.BaseAddress, UriString) : new Uri(UriString))
@@ -64,18 +69,14 @@ namespace PixivAPI.Http
             }.ToString());
             request.Content = Content;
 
+            HttpResponseMessage response;
             if (cancellationToken is CancellationToken token)
-            {
-                HttpResponseMessage response = await client.SendAsync(request, token);
-                response.EnsureSuccessStatusCode();
-                return await response.Content.ReadAsByteArrayAsync();
-            }
+                response = await client.SendAsync(request, token);
             else
-            {
-                HttpResponseMessage response = await client.SendAsync(request);
-                response.EnsureSuccessStatusCode();
-                return await response.Content.ReadAsByteArrayAsync();
-            }
+                response = await client.SendAsync(request);
+            if (response.IsSuccessStatusCode)
+                throw new HttpException(request, response);
+            return await response.Content.ReadAsByteArrayAsync();
         }
     }
 }
