@@ -74,7 +74,7 @@ namespace PixivAPI.Http
                 response = await client.SendAsync(request, token);
             else
                 response = await client.SendAsync(request);
-            if (response.IsSuccessStatusCode)
+            if (!response.IsSuccessStatusCode)
                 throw new HttpException(request, response);
             return await response.Content.ReadAsByteArrayAsync();
         }
