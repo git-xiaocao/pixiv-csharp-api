@@ -7,6 +7,8 @@ using System.Linq;
 using System.Net;
 using System.Net.Http;
 using System.Net.Http.Headers;
+using System.Net.Security;
+using System.Net.Sockets;
 using System.Text;
 using System.Threading.Tasks;
 
@@ -21,7 +23,7 @@ namespace PixivAPI
 
         public ApiClient(AuthClient authClient, StringWithQualityHeaderValue language)
         {
-            client = new HttpClient(new ClientHandler(authClient))
+            client = new HttpClient(new ClientHandler(authClient, TARGET_IP))
             {
                 BaseAddress = new Uri($"https://{TARGET_IP}")
             };
@@ -765,19 +767,17 @@ namespace PixivAPI
         }
 
 
-        internal class ClientHandler : HttpClientHandler
+        internal class ClientHandler : CustomIpHttpsHandler
         {
             private readonly AuthClient authClient;
 
             private readonly Mutex refreshTokenMutex = new();
 
-            public ClientHandler(AuthClient authClient)
+
+            public ClientHandler(AuthClient authClient, string targetIp) : base(targetIp)
             {
-                ServerCertificateCustomValidationCallback = delegate { return true; };
                 this.authClient = authClient;
             }
-
-
 
             protected async override Task<HttpResponseMessage> SendAsync(HttpRequestMessage request, CancellationToken cancellationToken)
             {
@@ -787,7 +787,6 @@ namespace PixivAPI
                 {
                     return response;
                 }
-
 
                 if (HttpStatusCode.BadRequest == response.StatusCode)
                 {

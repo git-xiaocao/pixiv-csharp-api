@@ -29,7 +29,7 @@ namespace PixivAPI
         {
             this.getUserAccountFunc = getUserAccountFunc;
 
-            client = new HttpClient(new ClientHandler())
+            client = new HttpClient(new CustomIpHttpsHandler(TARGET_IP))
             {
                 BaseAddress = new Uri($"https://{TARGET_IP}"),
             };
@@ -93,12 +93,5 @@ namespace PixivAPI
 
         }
 
-        internal class ClientHandler : HttpClientHandler
-        {
-            public ClientHandler()
-            {
-                ServerCertificateCustomValidationCallback = delegate { return true; };
-            }
-        }
     }
 }
