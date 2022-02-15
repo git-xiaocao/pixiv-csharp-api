@@ -48,7 +48,7 @@ namespace PixivAPI.Entity
         [JsonPropertyName("series")]
         public SeriesEntity Series { get; set; } = default!;
 
-        [JsonPropertyName("is_bookmarked")]
+        [JsonPropertyName("total_bookmarks")]
         public int TotalBookmarks { get; set; }
 
         [JsonPropertyName("is_bookmarked")]

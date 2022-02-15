@@ -199,7 +199,7 @@ namespace PixivAPI
         /// <returns>
         /// 插画列表 <see cref="IllustsDTO"/>
         /// </returns>
-        public Task<IllustsDTO> GetRecommendedIllusts(RankingMode mode, CancellationToken? cancellationToken = null)
+        public Task<IllustsDTO> GetRanking(RankingMode mode, CancellationToken? cancellationToken = null)
         {
             return +new HttpJsonRequest<IllustsDTO>(client, cancellationToken)
             {
@@ -210,6 +210,7 @@ namespace PixivAPI
                 ["mode"] = mode.ToPixivStringParameter(),
             };
         }
+
 
         /// <summary>
         /// 获取推荐标签(搜索用的)
@@ -287,10 +288,10 @@ namespace PixivAPI
             return +new HttpJsonRequest<IllustsDTO>(client, cancellationToken)
             {
                 Method = HttpMethod.Get,
-                UriString = "/v2/illust/follow",
+                UriString = "/v1/illust/follow",
 
                 ["filter"] = "for_android",
-                ["content_type"] = restrict is null ? "all" : restrict.ToPixivStringParameter(),
+                ["restrict"] = restrict is null ? "all" : restrict.ToPixivStringParameter(),
             };
         }
 
@@ -311,7 +312,7 @@ namespace PixivAPI
                 UriString = "/v1/novel/follow",
 
                 ["filter"] = "for_android",
-                ["content_type"] = restrict is null ? "all" : restrict.ToPixivStringParameter(),
+                ["restrict"] = restrict is null ? "all" : restrict.ToPixivStringParameter(),
             };
         }
 
@@ -399,7 +400,7 @@ namespace PixivAPI
         /// <summary>
         /// 获取小说HTML页面
         /// </summary>
-        /// <param name="novelId">小说</param>
+        /// <param name="novelId">小说ID</param>
         /// <param name="cancellationToken"></param>
         /// <exception cref="HttpException"/>
         /// <returns>
@@ -522,7 +523,7 @@ namespace PixivAPI
                 Method = HttpMethod.Get,
                 UriString = "/v1/search/illust",
 
-                ["filter"] = true,
+                ["filter"] = "for_android",
                 ["include_translated_tag_results"] = true,
                 ["merge_plain_keyword_results"] = true,
                 ["word"] = bookmarkTotal is null ? word : $"{word} {bookmarkTotal}users入り",
@@ -556,7 +557,6 @@ namespace PixivAPI
                 Method = HttpMethod.Get,
                 UriString = "/v1/search/novel",
 
-                ["filter"] = true,
                 ["include_translated_tag_results"] = true,
                 ["merge_plain_keyword_results"] = true,
                 ["word"] = bookmarkTotal is null ? word : $"{word} {bookmarkTotal}users入り",
@@ -576,7 +576,7 @@ namespace PixivAPI
         /// <returns>
         /// 用户列表 <see cref="UsersDTO"/>
         /// </returns>
-        public Task<UsersDTO> SearchUsers(int word, CancellationToken? cancellationToken = null)
+        public Task<UsersDTO> SearchUsers(string word, CancellationToken? cancellationToken = null)
         {
             return +new HttpJsonRequest<UsersDTO>(client, cancellationToken)
             {
@@ -630,7 +630,7 @@ namespace PixivAPI
             return +new HttpStringRequest(client, cancellationToken)
             {
                 Method = HttpMethod.Post,
-                UriString = "/v1/illust/comment/delete",
+                UriString = $"/v1/{(isNovel ? "novel" : "illust")}/comment/delete",
 
                 Content = new FormData()
                 {
@@ -757,7 +757,7 @@ namespace PixivAPI
             return +new HttpStringRequest(client, cancellationToken)
             {
                 Method = HttpMethod.Post,
-                UriString = "/v1/illust/comment/delete",
+                UriString = $"/v1/illust/comment/delete",
 
                 Content = new FormData()
                 {
